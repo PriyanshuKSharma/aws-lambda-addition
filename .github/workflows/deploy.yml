@@ -1,0 +1,32 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+          sudo installer -pkg AWSCLIV2.pkg -target /
+
+      - name: Deploy to Lambda
+        env:
+          AWS_ACCESS_KEY_ID: AKIAVRUVPKWUSSIDAYOZ
+          AWS_SECRET_ACCESS_KEY: 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
+          AWS_REGION: ap-south-1
+        run: |
+          zip function.zip lambda_function.py
+          aws lambda update-function-code --function-name AddNumbersFunction --zip-file fileb://function.zip
