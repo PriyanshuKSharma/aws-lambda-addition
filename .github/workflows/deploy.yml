@@ -17,11 +17,15 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Zip Lambda function
+        run: |
+          ls -al  # List files to verify the presence of lambda_function.py
+          zip function.zip lambda_function.py
+
       - name: Deploy to Lambda
         env:
           AWS_ACCESS_KEY_ID: AKIAVRUVPKWUSSIDAYOZ
           AWS_SECRET_ACCESS_KEY: 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
           AWS_REGION: ap-south-1
         run: |
-          zip function.zip lambda_function.py
           aws lambda update-function-code --function-name AddNumbersFunction --zip-file fileb://function.zip
