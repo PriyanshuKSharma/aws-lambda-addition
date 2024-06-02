@@ -26,4 +26,3 @@ jobs:
             --function-name AddNumbersFunction\
             --zip-file fileb://function.zip
 
-
