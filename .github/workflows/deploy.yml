@@ -17,11 +17,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install AWS CLI
-        run: |
-          curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
-          sudo install -pkg AWSCLIV2.pkg -target /
-
       - name: Deploy to Lambda
         env:
           AWS_ACCESS_KEY_ID: AKIAVRUVPKWUSSIDAYOZ
